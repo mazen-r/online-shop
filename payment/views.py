@@ -18,7 +18,7 @@ def payment_process(request):
         # retreive none
         nonce = request.POST.get('payment_method_nonce', None)
         # create and submit transaction
-        result = gateway.transaction.site({
+        result = gateway.transaction.sale({
             'amount': f'{total_cost:.2f}',
             'payment_method_nonce': nonce,
             'options': {'submit_for_settlement': True}
@@ -28,13 +28,13 @@ def payment_process(request):
             order.paid = True
             order.braintree_id = result.transaction.id
             order.save()
-            return redirect('payment:canceled')
+            return redirect('payment:done')
         else:
             return redirect('payment:canceled')
     else:
         # generates token
         client_token = gateway.client_token.generate()
-        return render(request, 'payment/process.html', {'order': order,
+        return render(request, 'payment/process.html',{'order': order,
                      'client_token': client_token})
 
 def payment_done(request):
