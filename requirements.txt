@@ -3,3 +3,4 @@ python-dotenv
 pillow==9.1.0
 celery==4.4.2
 braintree==3.59.0
+redis==3.4.1
