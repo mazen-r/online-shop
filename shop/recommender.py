@@ -12,7 +12,7 @@ r = redis.Redis(host=settings.REDIS_HOST,
 
 class Recommender(object):
 
-    def get_product_by_key(self, id):
+    def get_product_key(self, id):
         return f'product:{id}:purchased_with'
     
     def products_bought(self, products):
